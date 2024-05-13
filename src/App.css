@@ -1,10 +1,31 @@
-.App {
+table {
+  border-collapse:collapse;
+  border:1px solid #eaecf0;
+}
+  
+td {
+  border:1px solid #eaecf0;
   text-align: center;
+}
+
+.table-header {
+  background-color: #f3f3f3;
+  text-align: left;
+  font-weight: 00;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.dark-grey-row {
+  background-color: #dfe0e4;
+}
+
+.dark-blue-header {
+  background-color: #344054;
+  color: #ffffff;
 }
 
 @media (prefers-reduced-motion: no-preference) {
