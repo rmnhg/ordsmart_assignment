@@ -3,6 +3,9 @@ import { Button, Container, Col, Image, Dropdown, Tooltip, OverlayTrigger } from
 import { MyPill } from "./MyPill";
 
 export const MyRow = (props) => {
+    const marginStyle = {"margin-left": "15px", "margin-right": "15px"};
+    const nestedMarginStyle = {"margin-left": "15px", "margin-right": "15px", "margin-top": "10px", "margin-bottom": "10px"};
+    const viewAllButtonStyle = {"margin-top": "5px", "margin-bottom": "5px"};
     const tooltipTimes = { show: 150, hide: 150 };
     const renderTooltip = (props, text) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -11,14 +14,14 @@ export const MyRow = (props) => {
       );
     return(
             <tr>
-                <td className="all-table-borders"><MyPill text={props.rowData['id']} type="light-grey-pill"/></td>
-                <td className="all-table-borders"><MyPill text={"↑ " + props.rowData['Priority']}/></td>
-                <td className="all-table-borders">{props.rowData['Group']}</td>
+                <td className="all-table-borders"><div style={marginStyle}><MyPill text={props.rowData['id']} type="light-grey-pill"/></div></td>
+                <td className="all-table-borders"><div style={marginStyle}><MyPill text={"↑ " + props.rowData['Priority']}/></div></td>
+                <td className="all-table-borders"><div style={marginStyle}>{props.rowData['Group']}</div></td>
                 <td className="all-table-borders">{
                         props.rowData['Products'].map((product, idx) => {
                             return (
                                 <tr>
-                                    <td id={"pn-" + props.index + "-" + idx} className={(idx < props.rowData['Products'].length - 1) && "products-column"}>{product['Product Name']}</td>
+                                    <td id={"pn-" + props.index + "-" + idx} className={(idx < props.rowData['Products'].length - 1) && "products-column"}><div style={marginStyle}>{product['Product Name']}</div></td>
                                 </tr>
                             ); 
                         })
@@ -32,25 +35,25 @@ export const MyRow = (props) => {
                                 <td className="variants-column">
                                     <tr className="dark-grey-row">
                                         <td id={"varBtn-" + props.index + "-" + idx}>
-                                            <Button variant="secondary">View all</Button>
+                                            <div style={viewAllButtonStyle}><Button variant="secondary">View all</Button></div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <table className="nested-table">
                                                 <tr className="dark-blue-header">
-                                                    <th className="nested-table-external">% concentration</th>
-                                                    <th className="all-table-borders">Flavour</th>
-                                                    <th className="all-table-borders">Weight</th>
-                                                    <th className="nested-table-external">Squirrels</th>
+                                                    <th className="nested-table-external"><div style={marginStyle}>% concentration</div></th>
+                                                    <th className="all-table-borders"><div style={marginStyle}>Flavour</div></th>
+                                                    <th className="all-table-borders"><div style={marginStyle}>Weight</div></th>
+                                                    <th className="nested-table-external"><div style={marginStyle}>Squirrels</div></th>
                                                 </tr>
                                                 {
                                                     product['Variants'].map((variant, idx) => {
                                                         return (
                                                             <tr>
-                                                                <td className="nested-table-external"><MyPill text={variant['% concentration']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></td>
-                                                                <td className="nested-table-internal"><MyPill text={variant['Flavour']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></td>
-                                                                <td className="nested-table-internal"><MyPill text={variant['Weight']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></td>
-                                                                <td className="nested-table-external"><MyPill text={variant['Squirrels']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></td>
+                                                                <td className="nested-table-external"><div style={nestedMarginStyle}><MyPill text={variant['% concentration']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></div></td>
+                                                                <td className="nested-table-internal"><div style={nestedMarginStyle}><MyPill text={variant['Flavour']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></div></td>
+                                                                <td className="nested-table-internal"><div style={nestedMarginStyle}><MyPill text={variant['Weight']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></div></td>
+                                                                <td className="nested-table-external"><div style={nestedMarginStyle}><MyPill text={variant['Squirrels']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></div></td>
                                                             </tr>
                                                         );
                                                     })
@@ -63,22 +66,22 @@ export const MyRow = (props) => {
                     })
                     }
                 </td>
-                <td className="all-table-borders">{props.rowData['Address']}</td>
-                <td className="all-table-borders"><MyPill text={props.rowData['Created on']}/></td>
-                <td className="all-table-borders"><MyPill text={props.rowData['Deadline delivery']}/></td>
-                <td className="all-table-borders"><MyPill text={props.rowData['Assigned to']}/></td>
-                <td className="all-table-borders"><MyPill text={props.rowData['Delivery to']}/></td>
-                <td className="all-table-borders">{props.rowData['Receiver']}</td>
-                <td className="all-table-borders"><MyPill text={props.rowData['Sample size']}/></td>
-                <td className="all-table-borders">{props.rowData['Application']}</td>
-                <td className="all-table-borders">{props.rowData['Additional Info']}</td>
+                <td className="all-table-borders"><div style={marginStyle}>{props.rowData['Address']}</div></td>
+                <td className="all-table-borders"><div style={marginStyle}><MyPill text={props.rowData['Created on']}/></div></td>
+                <td className="all-table-borders"><div style={marginStyle}><MyPill text={props.rowData['Deadline delivery']}/></div></td>
+                <td className="all-table-borders"><div style={marginStyle}><MyPill text={props.rowData['Assigned to']}/></div></td>
+                <td className="all-table-borders"><div style={marginStyle}><MyPill text={props.rowData['Delivery to']}/></div></td>
+                <td className="all-table-borders"><div style={marginStyle}>{props.rowData['Receiver']}</div></td>
+                <td className="all-table-borders"><div style={marginStyle}><MyPill text={props.rowData['Sample size']}/></div></td>
+                <td className="all-table-borders"><div style={marginStyle}>{props.rowData['Application']}</div></td>
+                <td className="all-table-borders"><div style={marginStyle}>{props.rowData['Additional Info']}</div></td>
                 <td className="all-table-borders">
                     <Container>
                         <Col>
                         {
                             props.rowData['Documents'].map((document, _) => {
                             return (
-                                <div>
+                                <div style={marginStyle}>
                                     <Image src="/file.png" roundedCircle style={{"height": "20px"}}/>
                                     <>{document}</>
                                 </div>
@@ -88,7 +91,7 @@ export const MyRow = (props) => {
                         </Col>
                     </Container>
                 </td>
-                <td className="all-table-borders actions-bg">
+                <td className="all-table-borders actions-bg actions-column">
                     <div>
                         <OverlayTrigger placement="right" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Confirm request")}>
                             <button type="button" class="btn btn-success action-btn">✓</button>

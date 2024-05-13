@@ -19,7 +19,7 @@ table {
   border-bottom: 0px;
 }
   
-td.variants-column {
+td.variants-column, td.actions-column {
   text-align: center; /* TODO: REVISAR DOCUMENTOS POR ESTO */
 }
 

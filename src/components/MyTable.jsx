@@ -5,6 +5,7 @@ import { MySortableHeader } from "./MySortableHeader";
 let data = require('../data/data.json');
 
 export const MyTable = (props) => {
+    const marginStyle = {"margin-left": "15px", "margin-right": "15px"};
     useEffect(() => {
         // Adjust some table widths and heights using JS
         let maxWidthProduct = 0;
@@ -33,11 +34,11 @@ export const MyTable = (props) => {
             </div>
             <table className="all-table-borders">
                     <tr className="table-header">
-                        <th className="all-table-borders">ID</th>
+                        <th className="all-table-borders"><div style={marginStyle}>ID</div></th>
                         <th className="all-table-borders"><MySortableHeader text="Priority"/></th>
                         <th className="all-table-borders"><MySortableHeader text="Group"/></th>
                         <th id="pn-header" className="all-table-borders"><MySortableHeader text="Product Name"/></th>
-                        <th id="var-header" className="all-table-borders">Variants</th>
+                        <th id="var-header" className="all-table-borders"><div style={marginStyle}>Variants</div></th>
                         <th className="all-table-borders"><MySortableHeader text="Address"/></th>
                         <th className="all-table-borders"><MySortableHeader text="Created on"/></th>
                         <th className="all-table-borders"><MySortableHeader text="Deadline delivery"/></th>
@@ -46,9 +47,9 @@ export const MyTable = (props) => {
                         <th className="all-table-borders"><MySortableHeader text="Receiver"/></th>
                         <th className="all-table-borders"><MySortableHeader text="Sample size"/></th>
                         <th className="all-table-borders"><MySortableHeader text="Application"/></th>
-                        <th className="all-table-borders">Additional Info</th>
-                        <th className="all-table-borders">Documents</th>
-                        <th className="all-table-borders">Actions</th>
+                        <th className="all-table-borders"><div style={marginStyle}>Additional Info</div></th>
+                        <th className="all-table-borders"><div style={marginStyle}>Documents</div></th>
+                        <th className="all-table-borders"><div style={marginStyle}>Actions</div></th>
                     </tr>
                     {
                         data.map((element, idx) => {
