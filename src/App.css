@@ -1,11 +1,30 @@
 table {
   border-collapse:collapse;
-  border:1px solid #eaecf0;
+  color: #344054;
+}
+
+table.main-table {
+  border: 1px solid #eaecf0;
+}
+
+th.main-table {
+  border: 1px solid #eaecf0;
+}
+
+td.main-table {
+  border: 1px solid #eaecf0;
 }
   
-td {
-  border:1px solid #eaecf0;
-  text-align: center;
+td.variants-column {
+  text-align: center; /* TODO: REVISAR DOCUMENTOS POR ESTO */
+}
+
+td.products-column {
+  border-bottom: 1px solid #eaecf0;
+}
+
+th {
+  font-weight: normal;
 }
 
 .table-header {
@@ -14,9 +33,93 @@ td {
   font-weight: 00;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.actions-bg {
+  background-color: #f3f3f3;
+}
+
+.nested-table {
+  width: 100%;
+}
+
+.sort-icon {
+  margin-right: 5px;
+  width: 10px;
+  height: 15px;
+}
+
+:root {
+  --red-btn-bg: #ecd0d8;
+  --red-btn-color: #c9184a;
+  --green-btn-bg: #d9e9e5;
+  --green-btn-color: #52b69a;
+  --grey-btn-bg: #e9e9e9;
+  --grey-btn-color: #8b8d97;
+  --pill-color: #344054;
+  --grey-pill-bg: #f4f4f4;
+  --grey-pill-border: #f4f4f4;
+  --light-grey-pill-bg: #f9fafb;
+  --light-grey-pill-border: #eaecf0;
+  --blue-pill-bg: #e2e7ef;
+  --blue-pill-border: #eaecf0;
+}
+
+.bg-secondary {
+  background-color: var(--grey-btn-bg);
+}
+
+.grey-pill {
+  background-color: var(--grey-pill-bg);
+  color: var(--pill-color);
+  border: 1px solid var(--grey-pill-border);
+  font-weight: normal;
+  font-size: var(--bs-body-font-size);
+}
+
+.light-grey-pill {
+  background-color: var(--light-grey-pill-bg);
+  color: var(--pill-color);
+  border: 1px solid var(--light-grey-pill-border);
+  font-weight: var(--bs-badge-font-weight);
+  font-size: var(--bs-body-font-size);
+}
+
+.blue-pill {
+  background-color: var(--blue-pill-bg);
+  color: var(--pill-color);
+  border: 1px solid var(--blue-pill-border);
+  font-weight: var(--bs-badge-font-weight);
+  font-size: var(--bs-body-font-size);
+}
+
+.btn-danger {
+  background-color: var(--red-btn-bg);
+  --bs-btn-border-color: var(--red-btn-bg);
+  color: var(--red-btn-color);
+  --bs-btn-hover-bg: var(--red-btn-color);
+  --bs-btn-hover-border-color: var(--red-btn-color);
+}
+
+.btn-success {
+  background-color: var(--green-btn-bg);
+  --bs-btn-border-color: var(--green-btn-bg);
+  color: var(--green-btn-color);
+  --bs-btn-hover-bg: var(--green-btn-color);
+  --bs-btn-hover-border-color: var(--green-btn-color);
+}
+
+.btn-secondary {
+  background-color: var(--grey-btn-bg);
+  --bs-btn-border-color: var(--grey-btn-bg);
+  color: var(--grey-btn-color);
+  --bs-btn-hover-bg: var(--grey-btn-color);
+  --bs-btn-hover-border-color: var(--grey-btn-color);
+}
+
+.action-btn {
+  margin-left: 5px;
+  margin-top: 5px;
+  width: 40px;
+  height: 40px;
 }
 
 .dark-grey-row {
@@ -28,32 +131,23 @@ td {
   color: #ffffff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: block; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(255, 255, 255); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+  padding-top: 20px;
+  text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.loading-img {
+  width: 100px;
+  height: 100px;
 }
