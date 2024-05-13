@@ -1,14 +1,14 @@
 import React from "react";
-import { Button, Container, Col, Image } from 'react-bootstrap';
+import { Button, Container, Col, Image, Dropdown } from 'react-bootstrap';
 import { MyPill } from "./MyPill";
 
 export const MyRow = (props) => {
     return(
             <tr>
-                <td className="main-table"><MyPill text={props.rowData['id']} type="light-grey-pill"/></td>
-                <td className="main-table"><MyPill text={"↑ " + props.rowData['Priority']}/></td>
-                <td className="main-table">{props.rowData['Group']}</td>
-                <td className="main-table">{
+                <td className="all-table-borders"><MyPill text={props.rowData['id']} type="light-grey-pill"/></td>
+                <td className="all-table-borders"><MyPill text={"↑ " + props.rowData['Priority']}/></td>
+                <td className="all-table-borders">{props.rowData['Group']}</td>
+                <td className="all-table-borders">{
                         props.rowData['Products'].map((product, idx) => {
                             return (
                                 <tr>
@@ -18,11 +18,11 @@ export const MyRow = (props) => {
                         })
                     }
                 </td>
-                <td>
+                <td className="all-table-borders">
                     {
                     props.rowData['Products'].map((product, idx) => {
                         return(
-                            <tr id={"var-" + props.index + "-" + idx}>
+                            <tr id={"var-" + props.index + "-" + idx} className={(idx < props.rowData['Products'].length - 1) && "middle-nested-table"}>
                                 <td className="variants-column">
                                     <tr className="dark-grey-row">
                                         <td id={"varBtn-" + props.index + "-" + idx}>
@@ -32,19 +32,19 @@ export const MyRow = (props) => {
                                     <tr>
                                         <table className="nested-table">
                                                 <tr className="dark-blue-header">
-                                                    <th>% concentration</th>
-                                                    <th>Flavour</th>
-                                                    <th>Weight</th>
-                                                    <th>Squirrels</th>
+                                                    <th className="nested-table-external">% concentration</th>
+                                                    <th className="all-table-borders">Flavour</th>
+                                                    <th className="all-table-borders">Weight</th>
+                                                    <th className="nested-table-external">Squirrels</th>
                                                 </tr>
                                                 {
                                                     product['Variants'].map((variant, idx) => {
                                                         return (
                                                             <tr>
-                                                                <td><MyPill text={variant['% concentration']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></td>
-                                                                <td><MyPill text={variant['Flavour']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></td>
-                                                                <td><MyPill text={variant['Weight']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></td>
-                                                                <td><MyPill text={variant['Squirrels']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></td>
+                                                                <td className="nested-table-external"><MyPill text={variant['% concentration']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></td>
+                                                                <td className="nested-table-internal"><MyPill text={variant['Flavour']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></td>
+                                                                <td className="nested-table-internal"><MyPill text={variant['Weight']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></td>
+                                                                <td className="nested-table-external"><MyPill text={variant['Squirrels']} type={idx % 2? "blue-pill" : "light-grey-pill"}/></td>
                                                             </tr>
                                                         );
                                                     })
@@ -57,16 +57,16 @@ export const MyRow = (props) => {
                     })
                     }
                 </td>
-                <td className="main-table">{props.rowData['Address']}</td>
-                <td className="main-table"><MyPill text={props.rowData['Created on']}/></td>
-                <td className="main-table"><MyPill text={props.rowData['Deadline delivery']}/></td>
-                <td className="main-table"><MyPill text={props.rowData['Assigned to']}/></td>
-                <td className="main-table"><MyPill text={props.rowData['Delivery to']}/></td>
-                <td className="main-table">{props.rowData['Receiver']}</td>
-                <td className="main-table"><MyPill text={props.rowData['Sample size']}/></td>
-                <td className="main-table">{props.rowData['Application']}</td>
-                <td className="main-table">{props.rowData['Additional Info']}</td>
-                <td className="main-table">
+                <td className="all-table-borders">{props.rowData['Address']}</td>
+                <td className="all-table-borders"><MyPill text={props.rowData['Created on']}/></td>
+                <td className="all-table-borders"><MyPill text={props.rowData['Deadline delivery']}/></td>
+                <td className="all-table-borders"><MyPill text={props.rowData['Assigned to']}/></td>
+                <td className="all-table-borders"><MyPill text={props.rowData['Delivery to']}/></td>
+                <td className="all-table-borders">{props.rowData['Receiver']}</td>
+                <td className="all-table-borders"><MyPill text={props.rowData['Sample size']}/></td>
+                <td className="all-table-borders">{props.rowData['Application']}</td>
+                <td className="all-table-borders">{props.rowData['Additional Info']}</td>
+                <td className="all-table-borders">
                     <Container>
                         <Col>
                         {
@@ -82,11 +82,20 @@ export const MyRow = (props) => {
                         </Col>
                     </Container>
                 </td>
-                <td className="main-table actions-bg">
+                <td className="all-table-borders actions-bg">
                     <div>
                         <button type="button" class="btn btn-success action-btn">✓</button><br/>
                         <button type="button" class="btn btn-danger action-btn">⨉</button><br/>
-                        <button type="button" class="btn btn-secondary action-btn">...</button>
+                        <Dropdown>
+                            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                                ...
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="#/action-1"><img src="/pencil.png" alt="Pencil icon" className="dropdown-action-icon"/><span className="dropdown-action">Edit Request</span></Dropdown.Item>
+                                <Dropdown.Item href="#/action-2"><img src="/document.png" alt="Notes icon" className="dropdown-action-icon"/><span className="dropdown-action">Notes</span></Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
                     </div>
                 </td>
             </tr>

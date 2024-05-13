@@ -29,26 +29,26 @@ export const MyTable = (props) => {
     return(
         <>
             <div id="overlay">
-                <img src="/spinner.gif" className="loading-img"/>
+                <img src="/spinner.gif" alt="Loading animation" className="loading-img"/>
             </div>
-            <table className="main-table">
+            <table className="all-table-borders">
                     <tr className="table-header">
-                        <th className="main-table">ID</th>
-                        <th className="main-table"><MySortableHeader text="Priority"/></th>
-                        <th className="main-table"><MySortableHeader text="Group"/></th>
-                        <th id="pn-header" className="main-table"><MySortableHeader text="Product Name"/></th>
-                        <th id="var-header" className="main-table">Variants</th>
-                        <th className="main-table"><MySortableHeader text="Address"/></th>
-                        <th className="main-table"><MySortableHeader text="Created on"/></th>
-                        <th className="main-table"><MySortableHeader text="Deadline delivery"/></th>
-                        <th className="main-table"><MySortableHeader text="Assigned to"/></th>
-                        <th className="main-table"><MySortableHeader text="Delivery to"/></th>
-                        <th className="main-table"><MySortableHeader text="Receiver"/></th>
-                        <th className="main-table"><MySortableHeader text="Sample size"/></th>
-                        <th className="main-table"><MySortableHeader text="Application"/></th>
-                        <th className="main-table">Additional Info</th>
-                        <th className="main-table">Documents</th>
-                        <th className="main-table">Actions</th>
+                        <th className="all-table-borders">ID</th>
+                        <th className="all-table-borders"><MySortableHeader text="Priority"/></th>
+                        <th className="all-table-borders"><MySortableHeader text="Group"/></th>
+                        <th id="pn-header" className="all-table-borders"><MySortableHeader text="Product Name"/></th>
+                        <th id="var-header" className="all-table-borders">Variants</th>
+                        <th className="all-table-borders"><MySortableHeader text="Address"/></th>
+                        <th className="all-table-borders"><MySortableHeader text="Created on"/></th>
+                        <th className="all-table-borders"><MySortableHeader text="Deadline delivery"/></th>
+                        <th className="all-table-borders"><MySortableHeader text="Assigned to"/></th>
+                        <th className="all-table-borders"><MySortableHeader text="Delivery to"/></th>
+                        <th className="all-table-borders"><MySortableHeader text="Receiver"/></th>
+                        <th className="all-table-borders"><MySortableHeader text="Sample size"/></th>
+                        <th className="all-table-borders"><MySortableHeader text="Application"/></th>
+                        <th className="all-table-borders">Additional Info</th>
+                        <th className="all-table-borders">Documents</th>
+                        <th className="all-table-borders">Actions</th>
                     </tr>
                     {
                         data.map((element, idx) => {
