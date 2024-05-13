@@ -1,8 +1,14 @@
 import React from "react";
-import { Button, Container, Col, Image, Dropdown } from 'react-bootstrap';
+import { Button, Container, Col, Image, Dropdown, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { MyPill } from "./MyPill";
 
 export const MyRow = (props) => {
+    const tooltipTimes = { show: 150, hide: 150 };
+    const renderTooltip = (props, text) => (
+        <Tooltip id="button-tooltip" {...props}>
+          {text}
+        </Tooltip>
+      );
     return(
             <tr>
                 <td className="all-table-borders"><MyPill text={props.rowData['id']} type="light-grey-pill"/></td>
@@ -84,12 +90,20 @@ export const MyRow = (props) => {
                 </td>
                 <td className="all-table-borders actions-bg">
                     <div>
-                        <button type="button" class="btn btn-success action-btn">✓</button><br/>
-                        <button type="button" class="btn btn-danger action-btn">⨉</button><br/>
+                        <OverlayTrigger placement="right" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Confirm request")}>
+                            <button type="button" class="btn btn-success action-btn">✓</button>
+                        </OverlayTrigger>
+                        <br/>
+                        <OverlayTrigger placement="right" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Remove request")}>
+                            <button type="button" class="btn btn-danger action-btn">⨉</button>
+                        </OverlayTrigger>
+                        <br/>
                         <Dropdown>
-                            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                                ...
-                            </Dropdown.Toggle>
+                            <OverlayTrigger placement="right" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "More actions")}>
+                                <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                                    ...
+                                </Dropdown.Toggle>
+                            </OverlayTrigger>
 
                             <Dropdown.Menu>
                                 <Dropdown.Item href="#/action-1"><img src="/pencil.png" alt="Pencil icon" className="dropdown-action-icon"/><span className="dropdown-action">Edit Request</span></Dropdown.Item>

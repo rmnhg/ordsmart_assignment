@@ -94,6 +94,11 @@ th {
   height: 15px;
 }
 
+.tooltip {
+  --bs-tooltip-bg: #ffffff;
+  --bs-tooltip-color: #000000;
+}
+
 :root {
   --red-btn-bg: #ecd0d8;
   --red-btn-color: #c9184a;
