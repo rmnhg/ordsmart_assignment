@@ -55,7 +55,7 @@ export const MyTable = (props) => {
                         <th className="all-table-borders"><MySortableHeader text="Priority"/></th>
                         <th className="all-table-borders"><MySortableHeader text="Group"/></th>
                         <th id="pn-header" className="all-table-borders"><MySortableHeader text="Product Name"/></th>
-                        <th id="var-header" className="all-table-borders"><div style={marginStyle}>Variants</div></th>
+                        <th id="var-header" className="all-table-borders" colspan="4"><div style={marginStyle}>Variants</div></th>
                         <th className="all-table-borders"><MySortableHeader text="Address"/></th>
                         <th className="all-table-borders"><MySortableHeader text="Created on"/></th>
                         <th className="all-table-borders"><MySortableHeader text="Deadline delivery"/></th>
