@@ -1,8 +1,13 @@
-import React from "react";
-import { Button, Container, Col, Image, Dropdown, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Button, Container, Col, Image, Dropdown, Tooltip, OverlayTrigger, Modal } from 'react-bootstrap';
 import { MyPill } from "./MyPill";
 
 export const MyRow = (props) => {
+    const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
+
+    const handleClose = () => setShowConfirmationDialog(false);
+    const handleShow = () => setShowConfirmationDialog(true);
+
     const marginStyle = {"margin-left": "15px", "margin-right": "15px"};
     const nestedMarginStyle = {"margin-left": "15px", "margin-right": "15px", "margin-top": "10px", "margin-bottom": "10px"};
     const viewAllButtonStyle = {"margin-top": "5px", "margin-bottom": "5px"};
@@ -93,16 +98,16 @@ export const MyRow = (props) => {
                 </td>
                 <td className="all-table-borders actions-bg actions-column">
                     <div>
-                        <OverlayTrigger placement="right" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Confirm request")}>
-                            <button type="button" class="btn btn-success action-btn">✓</button>
+                        <OverlayTrigger placement="left" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Confirm request")}>
+                            <button type="button" class="btn btn-success action-btn" onClick={() => props.removeRow(props.rowData['id'])}>✓</button>
                         </OverlayTrigger>
                         <br/>
-                        <OverlayTrigger placement="right" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Remove request")}>
-                            <button type="button" class="btn btn-danger action-btn">⨉</button>
+                        <OverlayTrigger placement="left" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Remove request")}>
+                            <button type="button" class="btn btn-danger action-btn" onClick={handleShow}>⨉</button>
                         </OverlayTrigger>
                         <br/>
                         <Dropdown>
-                            <OverlayTrigger placement="right" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "More actions")}>
+                            <OverlayTrigger placement="left" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "More actions")}>
                                 <Dropdown.Toggle variant="secondary" id="dropdown-basic">
                                     ...
                                 </Dropdown.Toggle>
@@ -113,6 +118,20 @@ export const MyRow = (props) => {
                                 <Dropdown.Item href="#/action-2"><img src="/document.png" alt="Notes icon" className="dropdown-action-icon"/><span className="dropdown-action">Notes</span></Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
+                        <Modal show={showConfirmationDialog} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                            <Modal.Title>Confirm remove</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>{"Are you sure you want to delete the row with ID " + props.rowData['id'] + "?"}</Modal.Body>
+                            <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                No
+                            </Button>
+                            <Button variant="danger" onClick={() => {props.removeRow(props.rowData['id']); handleClose()}}>
+                                Yes
+                            </Button>
+                            </Modal.Footer>
+                        </Modal>
                     </div>
                 </td>
             </tr>

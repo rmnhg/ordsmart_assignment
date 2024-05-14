@@ -1,25 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MyRow } from "./MyRow";
 import { MySortableHeader } from "./MySortableHeader";
 
 let data = require('../data/data.json');
 
 export const MyTable = (props) => {
+    const [dataRows, setDataRows] = useState(data);
+
     const marginStyle = {"margin-left": "15px", "margin-right": "15px"};
+
+    const removeRow = (id) => {
+        console.log("Removing row with id: "+id);
+        let newDataRows = JSON.parse(JSON.stringify(dataRows));
+        let idx = -1;
+        newDataRows.map((array, pos) => {
+            console.log(array);
+            if (array['id'] === id)
+                idx = pos;
+            return pos;
+        });
+        newDataRows.splice(idx, 1);
+        setDataRows(newDataRows);
+    };
+
     useEffect(() => {
         // Adjust some table widths and heights using JS
         let maxWidthProduct = 0;
         let maxWidthTable = 0;
-        for (let i in data) {
-            for (let j in data[i]['Products']) {
+        for (let i in dataRows) {
+            for (let j in dataRows[i]['Products']) {
                 document.getElementById(`pn-${i}-${j}`).height = document.getElementById(`var-${i}-${j}`).offsetHeight;
                 document.getElementById(`pn-${i}-${j}`).width = document.getElementById(`pn-header`).offsetWidth;
                 maxWidthProduct = maxWidthProduct < document.getElementById(`pn-header`).offsetWidth? document.getElementById(`pn-header`).offsetWidth : maxWidthProduct;
                 maxWidthTable = maxWidthTable < document.getElementById(`var-header`).offsetWidth? document.getElementById(`var-header`).offsetWidth : maxWidthTable;
             }
         }
-        for (let i in data) {
-            for (let j in data[i]['Products']) {
+        for (let i in dataRows) {
+            for (let j in dataRows[i]['Products']) {
                 document.getElementById(`pn-${i}-${j}`).width = maxWidthProduct;
                 document.getElementById(`varBtn-${i}-${j}`).width = maxWidthTable;
             }
@@ -52,9 +69,9 @@ export const MyTable = (props) => {
                         <th className="all-table-borders"><div style={marginStyle}>Actions</div></th>
                     </tr>
                     {
-                        data.map((element, idx) => {
+                        dataRows.map((element, idx) => {
                                 return (
-                                    <MyRow rowData={element} index={idx} key={idx}/>
+                                    <MyRow rowData={element} index={idx} key={idx} removeRow={removeRow}/>
                                 )
                             })
                     }
