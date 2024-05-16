@@ -77,7 +77,7 @@ export const MyRow = (props) => {
                         <>
                             <td className="all-table-borders" rowSpan={getNumberOfRowsPerProduct(props.rowData, currentProduct['Product Name'])}><div className="cell-margins">{currentProduct['Product Name']}</div></td>
                             <td className="all-table-borders variants-column dark-grey-row" colSpan="4">
-                                <div className="view-all-button"><button type="button" class="btn btn-secondary view-all-button-margins">View all</button></div>
+                                <div className="view-all-button"><button type="button" className="btn btn-secondary view-all-button-margins">View all</button></div>
                             </td>
                         </> : <></>
                     }
@@ -137,11 +137,11 @@ export const MyRow = (props) => {
                         <td className="all-table-borders actions-bg actions-column" rowSpan={getTotalRows(props.rowData)}>
                             <div>
                                 <OverlayTrigger placement="left" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Confirm request")}>
-                                    <button type="button" class="btn btn-success action-btn" onClick={() => props.removeRow(props.rowData['id'])}>✓</button>
+                                    <button type="button" className="btn btn-success action-btn" onClick={() => props.removeRow(props.rowData['id'])}>✓</button>
                                 </OverlayTrigger>
                                 <br/>
                                 <OverlayTrigger placement="left" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Remove request")}>
-                                    <button type="button" class="btn btn-danger action-btn" onClick={handleShow}>⨉</button>
+                                    <button type="button" className="btn btn-danger action-btn" onClick={handleShow}>⨉</button>
                                 </OverlayTrigger>
                                 <br/>
                                 <Dropdown>

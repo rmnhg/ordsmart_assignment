@@ -31,6 +31,7 @@ export const MyTable = (props) => {
                 <img src="/spinner.gif" alt="Loading animation" className="loading-img"/>
             </div>
             <table className="all-table-borders">
+                <thead>
                     <tr className="table-header">
                         <th className="all-table-borders"><div className="cell-margins">ID</div></th>
                         <th className="all-table-borders"><MySortableHeader text="Priority"/></th>
@@ -50,6 +51,8 @@ export const MyTable = (props) => {
                         <th className="all-table-borders"><div className="cell-margins">Notes</div></th>
                         <th className="all-table-borders"><div className="cell-margins">Actions</div></th>
                     </tr>
+                </thead>
+                <tbody>
                     {
                         dataRows.map((element, idx) => {
                                 return (
@@ -57,6 +60,7 @@ export const MyTable = (props) => {
                                 )
                             })
                     }
+                </tbody>
             </table>
         </>);
 };
