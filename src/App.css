@@ -1,38 +1,36 @@
+/* Table & Cells */
 table {
   border-collapse:collapse;
   color: #344054;
 }
 
+.cell-margins {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
 .all-table-borders {
   border: 1px solid #eaecf0;
 }
-
-.nested-table-external {
-  border: 1px solid #eaecf0;
-  border-left: 0px;
-  border-right: 0px;
-  border-bottom: 0px;
-}
-
-.nested-table-internal {
-  border: 1px solid #eaecf0;
-  border-bottom: 0px;
-}
   
-td.variants-column, td.actions-column {
-  text-align: center; /* TODO: REVISAR DOCUMENTOS POR ESTO */
-}
-
-td.products-column {
-  border-bottom: 1px solid #eaecf0;
+.variants-column, td.actions-column {
+  text-align: center;
 }
 
 th {
   font-weight: normal;
 }
 
-.middle-nested-table {
-  border-bottom: 1px solid #eaecf0;
+.variants-margins {
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px
+}
+
+.view-all-button {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .table-header {
@@ -45,6 +43,22 @@ th {
   background-color: #f3f3f3;
 }
 
+.sort-icon {
+  margin-right: 5px;
+  width: 10px;
+  height: 15px;
+}
+
+.dark-grey-row {
+  background-color: #dfe0e4;
+}
+
+.dark-blue-header {
+  background-color: #344054;
+  color: #ffffff;
+}
+
+/* Actions dropdown menu */
 .dropdown-toggle {
   border-top: 0px;
   border-right: 0px;
@@ -84,21 +98,14 @@ th {
   --bs-dropdown-link-active-bg: #e9e9e9;
 }
 
-.nested-table {
-  width: 100%;
-}
-
-.sort-icon {
-  margin-right: 5px;
-  width: 10px;
-  height: 15px;
-}
+/* Actions tooltips */
 
 .tooltip {
   --bs-tooltip-bg: #ffffff;
   --bs-tooltip-color: #000000;
 }
 
+/* Table pills & general color changes */
 :root {
   --red-btn-bg: #ecd0d8;
   --red-btn-color: #c9184a;
@@ -175,15 +182,7 @@ th {
   height: 40px;
 }
 
-.dark-grey-row {
-  background-color: #dfe0e4;
-}
-
-.dark-blue-header {
-  background-color: #344054;
-  color: #ffffff;
-}
-
+/* Loading screen */
 #overlay {
   position: fixed; /* Sit on top of the page content */
   display: block; /* Hidden by default */

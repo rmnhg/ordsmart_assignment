@@ -8,18 +8,12 @@ export const MyRow = (props) => {
     const handleClose = () => setShowConfirmationDialog(false);
     const handleShow = () => setShowConfirmationDialog(true);
 
-    const marginStyle = {marginLeft: "15px", marginRight: "15px"};
-    const nestedMarginStyle = {marginLeft: "15px", marginRight: "15px", "margin-top": "10px", "margin-bottom": "10px"};
-    const viewAllButtonStyle = {"margin-top": "5px", "margin-bottom": "5px"};
-
     const tooltipTimes = { show: 150, hide: 150 };
     const renderTooltip = (props, text) => (
         <Tooltip id="button-tooltip" {...props}>
           {text}
         </Tooltip>
     );
-    
-    const getNumberOfProducts = (data) => data['Products'].length;
 
     const getTotalRows = (data) => {
         let res = 0;
@@ -51,8 +45,10 @@ export const MyRow = (props) => {
         [...Array(getTotalRows(props.rowData)).keys()].map((_, row) => {
             currentRowInProduct++;
             variantValues = [];
+            // Save the keys of the current product variants
+            keys = Object.keys(currentProduct['Variants'][0]);
             // Jump to the next product if there are still more products to be processed
-            if ((currentRowInProduct === currentProduct['Variants'].length)) {
+            if (currentRowInProduct === currentProduct['Variants'].length) {
                 productIdx++;
                 // Exit the loop if we are done with the products
                 if (productIdx === props.rowData['Products'].length) {
@@ -60,31 +56,28 @@ export const MyRow = (props) => {
                 }
                 // Set the new product
                 currentProduct = props.rowData['Products'][productIdx];
-                console.log("Tenemos el producto "+currentProduct);
-                keys = Object.keys(currentProduct['Variants'][0]);
-                currentRowInProduct = 0;
+                currentRowInProduct = -2;
             }
             if (currentRowInProduct >= 0 && currentRowInProduct < currentProduct['Variants'].length) {
-                console.log("Cogiendo los valores actuales :)");
+                // Save the values of the variants to the variantValues variable
                 for (let key of keys) {
                     variantValues.push(currentProduct['Variants'][currentRowInProduct][key]);
                 }
-                console.log(`Cogidos los valores ${variantValues} :))`);
             }
             return (
                 <tr key={row}>
                     {row === 0 /* Add all the general data */?
                     <>
-                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['id']} type="light-grey-pill"/></div></td>
-                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={"↑ " + props.rowData['Priority']}/></div></td>
-                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}>{props.rowData['Group']}</div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins"><MyPill text={props.rowData['id']} type="light-grey-pill"/></div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins"><MyPill text={"↑ " + props.rowData['Priority']}/></div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins">{props.rowData['Group']}</div></td>
                     </> : <></>
                     }
                     {currentRowInProduct === -2 /* View all*/?
                         <>
-                            <td className="all-table-borders" rowSpan={getNumberOfRowsPerProduct(props.rowData, currentProduct['Product Name'])}><div style={marginStyle}>{currentProduct['Product Name']}</div></td>
-                            <td className="all-table-borders" colSpan="4">
-                                <div style={viewAllButtonStyle}><Button variant="secondary">View all</Button></div>
+                            <td className="all-table-borders" rowSpan={getNumberOfRowsPerProduct(props.rowData, currentProduct['Product Name'])}><div className="cell-margins">{currentProduct['Product Name']}</div></td>
+                            <td className="all-table-borders variants-column dark-grey-row" colSpan="4">
+                                <div className="view-all-button"><Button variant="secondary">View all</Button></div>
                             </td>
                         </> : <></>
                     }
@@ -92,49 +85,45 @@ export const MyRow = (props) => {
                         keys.map((columnName, idx) => {
                             return(
                                 <td className="all-table-borders dark-blue-header" key={idx}>
-                                    <div style={marginStyle}>{columnName}</div>
+                                    <div className="cell-margins">{columnName}</div>
                                 </td>
                             );
                         })
                         : <></>
                     }
-                    {currentRowInProduct >= 0 /* the variants table row which needs to be appended with data*/?
+                    {currentRowInProduct >= 0 && (currentRowInProduct < currentProduct['Variants'].length) /* the variants table row which needs to be appended with data*/?
                         (currentRowInProduct % 2?
-                            variantValues.map((value, idx) => {
-                                return(
-                                    <td className="all-table-borders" key={idx}>
-                                        <div style={marginStyle}><MyPill text={value} type={"blue-pill"}/></div>
-                                    </td>
-                                );
-                            }) :
-                            variantValues.map((value, idx) => {
-                                return(
-                                    <td className="all-table-borders" key={idx}>
-                                        <div style={marginStyle}><MyPill text={value} type={"light-grey-pill"}/></div>
-                                    </td>
-                                );
-                            })
+                            variantValues.map((value, idx) =>
+                                <td className="all-table-borders" key={idx}>
+                                    <div className="variants-margins variants-column"><MyPill text={value} type={"blue-pill"}/></div>
+                                </td>
+                            ) :
+                            variantValues.map((value, idx) =>
+                                <td className="all-table-borders" key={idx}>
+                                    <div className="variants-margins variants-column"><MyPill text={value} type={"light-grey-pill"}/></div>
+                                </td>
+                            )
                         )
                         : <></>
                     }
                     {row === 0 /* Add the rest of the general data */?
                     <>
-                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}>{props.rowData['Address']}</div></td>
-                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['Created on']}/></div></td>
-                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['Deadline delivery']}/></div></td>
-                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['Assigned to']}/></div></td>
-                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['Delivery to']}/></div></td>
-                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}>{props.rowData['Receiver']}</div></td>
-                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['Sample size']}/></div></td>
-                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}>{props.rowData['Application']}</div></td>
-                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}>{props.rowData['Additional Info']}</div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins">{props.rowData['Address']}</div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins"><MyPill text={props.rowData['Created on']}/></div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins"><MyPill text={props.rowData['Deadline delivery']}/></div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins"><MyPill text={props.rowData['Assigned to']}/></div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins"><MyPill text={props.rowData['Delivery to']}/></div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins">{props.rowData['Receiver']}</div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins"><MyPill text={props.rowData['Sample size']}/></div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins">{props.rowData['Application']}</div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins">{props.rowData['Additional Info']}</div></td>
                         <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}>
                             <Container>
                                 <Col>
                                 {
                                     props.rowData['Documents'].map((document, idx) => {
                                     return (
-                                        <div style={marginStyle} key={idx}>
+                                        <div className="cell-margins" key={idx}>
                                             <Image src="/file.png" roundedCircle style={{"height": "20px"}}/>
                                             <>{document}</>
                                         </div>
