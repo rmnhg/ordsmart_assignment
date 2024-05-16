@@ -69,7 +69,7 @@ export const MyRow = (props) => {
                     {row === 0 /* Add all the general data */?
                     <>
                         <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins"><MyPill text={props.rowData['id']} type="light-grey-pill"/></div></td>
-                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins"><MyPill text={"↑ " + props.rowData['Priority']}/></div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins"><MyPill text={props.rowData['Priority'] =="High"? "↑ " + props.rowData['Priority'] : "↓ " + props.rowData['Priority']}/></div></td>
                         <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins">{props.rowData['Group']}</div></td>
                     </> : <></>
                     }
