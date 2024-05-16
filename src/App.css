@@ -33,6 +33,11 @@ th {
   margin-bottom: 5px;
 }
 
+.btn {
+  --bs-btn-padding-x: 0.80rem;
+  --bs-btn-padding-y: 0.0rem;
+}
+
 .table-header {
   background-color: #f3f3f3;
   text-align: left;
