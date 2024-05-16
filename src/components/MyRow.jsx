@@ -8,8 +8,8 @@ export const MyRow = (props) => {
     const handleClose = () => setShowConfirmationDialog(false);
     const handleShow = () => setShowConfirmationDialog(true);
 
-    const marginStyle = {"margin-left": "15px", "margin-right": "15px"};
-    const nestedMarginStyle = {"margin-left": "15px", "margin-right": "15px", "margin-top": "10px", "margin-bottom": "10px"};
+    const marginStyle = {marginLeft: "15px", marginRight: "15px"};
+    const nestedMarginStyle = {marginLeft: "15px", marginRight: "15px", "margin-top": "10px", "margin-bottom": "10px"};
     const viewAllButtonStyle = {"margin-top": "5px", "margin-bottom": "5px"};
 
     const tooltipTimes = { show: 150, hide: 150 };
@@ -39,134 +39,155 @@ export const MyRow = (props) => {
         }
         return res;
     }
-    let rows = <></>; // Add <></> at the end
+
     let productIdx = 0;
     let currentProduct = props.rowData['Products'][productIdx];
-    let currentRowInProduct = -2;
-    console.log(`Emmmpezamos el bucle con currentRowInProduct = ${currentRowInProduct}, currentProduct = ${currentProduct['Product Name']} y prodcutIdx = ${productIdx}`);
-    for (let row = 0; row < getTotalRows(props.rowData); row++) {
-            console.log(`Estamos empezando una vuelta del bucle ANTES de sumar con currentRowInProduct = ${currentRowInProduct}, currentProduct = ${currentProduct['Product Name']} y prodcutIdx = ${productIdx}`);
-            rows +=
-            <tr>
-                {row === 0 /* Add all the general data */?
-                <>
-                    <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['id']} type="light-grey-pill"/></div></td>
-                    <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={"↑ " + props.rowData['Priority']}/></div></td>
-                    <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}>{props.rowData['Group']}</div></td>
-                </> : <></>
-                }
-                {currentRowInProduct === -2 /* View all*/?
-                    <>
-                        <td className="all-table-borders" rowSpan={getNumberOfRowsPerProduct(props.rowData, currentProduct['Product Name'])}><div style={marginStyle}>{currentProduct['Product Name']}</div></td>
-                        <td className="all-table-borders" colSpan="4">
-                            <div style={viewAllButtonStyle}><Button variant="secondary">View all</Button></div>
-                        </td>
-                    </> : <></>
-                }
-                {currentRowInProduct === -1 /* Variants table headers */?
-                    Object.keys(currentProduct['Variants'][0]).map((columnName, idx) => {
-                        return(
-                            <td className="all-table-borders dark-blue-header" key={idx}>
-                                <div style={marginStyle}>{columnName}</div>
-                            </td>
-                        );
-                    })
-                : <></>
-                }
-                {currentRowInProduct >= 0 /* the variants table row which needs to be appended with data*/? 
-                    Object.keys(currentProduct['Variants'][currentRowInProduct]).map((columnName, idx) => {
-                        return(
-                            <td className="all-table-borders" key={idx}>
-                                <div style={marginStyle}><MyPill text={currentProduct['Variants'][currentRowInProduct][columnName]} type={currentRowInProduct % 2? "blue-pill" : "light-grey-pill"}/></div>
-                            </td>
-                        );
-                    })
-                    : <></>
-                }
-                {row === 0 /* Add the rest of the general data */?
-                <>
-                    <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}>{props.rowData['Address']}</div></td>
-                    <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['Created on']}/></div></td>
-                    <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['Deadline delivery']}/></div></td>
-                    <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['Assigned to']}/></div></td>
-                    <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['Delivery to']}/></div></td>
-                    <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}>{props.rowData['Receiver']}</div></td>
-                    <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['Sample size']}/></div></td>
-                    <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}>{props.rowData['Application']}</div></td>
-                    <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}>{props.rowData['Additional Info']}</div></td>
-                    <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}>
-                        <Container>
-                            <Col>
-                            {
-                                props.rowData['Documents'].map((document, idx) => {
-                                return (
-                                    <div style={marginStyle} key={idx}>
-                                        <Image src="/file.png" roundedCircle style={{"height": "20px"}}/>
-                                        <>{document}</>
-                                    </div>
-                                    );
-                                })
-                            }
-                            </Col>
-                        </Container>
-                    </td>
-                    <td className="all-table-borders actions-bg actions-column" rowSpan={getTotalRows(props.rowData)}>
-                        <div>
-                            <OverlayTrigger placement="left" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Confirm request")}>
-                                <button type="button" class="btn btn-success action-btn" onClick={() => props.removeRow(props.rowData['id'])}>✓</button>
-                            </OverlayTrigger>
-                            <br/>
-                            <OverlayTrigger placement="left" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Remove request")}>
-                                <button type="button" class="btn btn-danger action-btn" onClick={handleShow}>⨉</button>
-                            </OverlayTrigger>
-                            <br/>
-                            <Dropdown>
-                                <OverlayTrigger placement="left" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "More actions")}>
-                                    <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                                        ...
-                                    </Dropdown.Toggle>
-                                </OverlayTrigger>
-
-                                <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1"><img src="/pencil.png" alt="Pencil icon" className="dropdown-action-icon"/><span className="dropdown-action">Edit Request</span></Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2"><img src="/document.png" alt="Notes icon" className="dropdown-action-icon"/><span className="dropdown-action">Notes</span></Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                            <Modal show={showConfirmationDialog} onHide={handleClose}>
-                                <Modal.Header closeButton>
-                                <Modal.Title>Confirm remove</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>{"Are you sure you want to delete the row with ID " + props.rowData['id'] + "?"}</Modal.Body>
-                                <Modal.Footer>
-                                <Button variant="secondary" onClick={handleClose}>
-                                    No
-                                </Button>
-                                <Button variant="danger" onClick={() => {props.removeRow(props.rowData['id']); handleClose()}}>
-                                    Yes
-                                </Button>
-                                </Modal.Footer>
-                            </Modal>
-                        </div>
-                    </td>
-                </> : <></>
-                }
-            </tr>
-            ;
+    let currentRowInProduct = -3;
+    let keys = [];
+    let variantValues = [];
+    return(
+    <>
+        {
+        [...Array(getTotalRows(props.rowData)).keys()].map((_, row) => {
             currentRowInProduct++;
-            console.log(`Estamos acabando una vuelta del bucle después de sumar con currentRowInProduct = ${currentRowInProduct}, currentProduct = ${currentProduct['Product Name']} y prodcutIdx = ${productIdx}`);
+            variantValues = [];
             // Jump to the next product if there are still more products to be processed
             if ((currentRowInProduct === currentProduct['Variants'].length)) {
-                console.log("Nos metimos en el if :)");
                 productIdx++;
+                // Exit the loop if we are done with the products
                 if (productIdx === props.rowData['Products'].length) {
-                    console.log("Saliendo del bucle para evitar errores con productIdx");
-                    break;
+                    return(<></>);
                 }
+                // Set the new product
                 currentProduct = props.rowData['Products'][productIdx];
-                console.log(`Estamos en el producto con ID=${props.rowData['id']} con productIdx=${productIdx} en la fila de la tabla número ${row}`);
-                console.log(`El nuevo producto es: ${currentProduct}`);
+                console.log("Tenemos el producto "+currentProduct);
+                keys = Object.keys(currentProduct['Variants'][0]);
                 currentRowInProduct = 0;
             }
-    }
-    return(<>{rows}</>);
+            if (currentRowInProduct >= 0 && currentRowInProduct < currentProduct['Variants'].length) {
+                console.log("Cogiendo los valores actuales :)");
+                for (let key of keys) {
+                    variantValues.push(currentProduct['Variants'][currentRowInProduct][key]);
+                }
+                console.log(`Cogidos los valores ${variantValues} :))`);
+            }
+            return (
+                <tr key={row}>
+                    {row === 0 /* Add all the general data */?
+                    <>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['id']} type="light-grey-pill"/></div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={"↑ " + props.rowData['Priority']}/></div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}>{props.rowData['Group']}</div></td>
+                    </> : <></>
+                    }
+                    {currentRowInProduct === -2 /* View all*/?
+                        <>
+                            <td className="all-table-borders" rowSpan={getNumberOfRowsPerProduct(props.rowData, currentProduct['Product Name'])}><div style={marginStyle}>{currentProduct['Product Name']}</div></td>
+                            <td className="all-table-borders" colSpan="4">
+                                <div style={viewAllButtonStyle}><Button variant="secondary">View all</Button></div>
+                            </td>
+                        </> : <></>
+                    }
+                    {currentRowInProduct === -1 /* Variants table headers */?
+                        keys.map((columnName, idx) => {
+                            return(
+                                <td className="all-table-borders dark-blue-header" key={idx}>
+                                    <div style={marginStyle}>{columnName}</div>
+                                </td>
+                            );
+                        })
+                        : <></>
+                    }
+                    {currentRowInProduct >= 0 /* the variants table row which needs to be appended with data*/?
+                        (currentRowInProduct % 2?
+                            variantValues.map((value, idx) => {
+                                return(
+                                    <td className="all-table-borders" key={idx}>
+                                        <div style={marginStyle}><MyPill text={value} type={"blue-pill"}/></div>
+                                    </td>
+                                );
+                            }) :
+                            variantValues.map((value, idx) => {
+                                return(
+                                    <td className="all-table-borders" key={idx}>
+                                        <div style={marginStyle}><MyPill text={value} type={"light-grey-pill"}/></div>
+                                    </td>
+                                );
+                            })
+                        )
+                        : <></>
+                    }
+                    {row === 0 /* Add the rest of the general data */?
+                    <>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}>{props.rowData['Address']}</div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['Created on']}/></div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['Deadline delivery']}/></div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['Assigned to']}/></div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['Delivery to']}/></div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}>{props.rowData['Receiver']}</div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}><MyPill text={props.rowData['Sample size']}/></div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}>{props.rowData['Application']}</div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div style={marginStyle}>{props.rowData['Additional Info']}</div></td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}>
+                            <Container>
+                                <Col>
+                                {
+                                    props.rowData['Documents'].map((document, idx) => {
+                                    return (
+                                        <div style={marginStyle} key={idx}>
+                                            <Image src="/file.png" roundedCircle style={{"height": "20px"}}/>
+                                            <>{document}</>
+                                        </div>
+                                        );
+                                    })
+                                }
+                                </Col>
+                            </Container>
+                        </td>
+                        <td className="all-table-borders actions-bg actions-column" rowSpan={getTotalRows(props.rowData)}>
+                            <div>
+                                <OverlayTrigger placement="left" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Confirm request")}>
+                                    <button type="button" class="btn btn-success action-btn" onClick={() => props.removeRow(props.rowData['id'])}>✓</button>
+                                </OverlayTrigger>
+                                <br/>
+                                <OverlayTrigger placement="left" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Remove request")}>
+                                    <button type="button" class="btn btn-danger action-btn" onClick={handleShow}>⨉</button>
+                                </OverlayTrigger>
+                                <br/>
+                                <Dropdown>
+                                    <OverlayTrigger placement="left" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "More actions")}>
+                                        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                                            ...
+                                        </Dropdown.Toggle>
+                                    </OverlayTrigger>
+
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item href="#/action-1"><img src="/pencil.png" alt="Pencil icon" className="dropdown-action-icon"/><span className="dropdown-action">Edit Request</span></Dropdown.Item>
+                                        <Dropdown.Item href="#/action-2"><img src="/document.png" alt="Notes icon" className="dropdown-action-icon"/><span className="dropdown-action">Notes</span></Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                                <Modal show={showConfirmationDialog} onHide={handleClose}>
+                                    <Modal.Header closeButton>
+                                    <Modal.Title>Confirm remove</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>{"Are you sure you want to delete the row with ID " + props.rowData['id'] + "?"}</Modal.Body>
+                                    <Modal.Footer>
+                                    <Button variant="secondary" onClick={handleClose}>
+                                        No
+                                    </Button>
+                                    <Button variant="danger" onClick={() => {props.removeRow(props.rowData['id']); handleClose()}}>
+                                        Yes
+                                    </Button>
+                                    </Modal.Footer>
+                                </Modal>
+                            </div>
+                        </td>
+                    </> : <></>
+                    }
+                </tr>
+            );
+        })
+        }
+    </>
+    );
 };
