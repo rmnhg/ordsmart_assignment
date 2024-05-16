@@ -7,7 +7,7 @@ let data = require('../data/data.json');
 export const MyTable = (props) => {
     const [dataRows, setDataRows] = useState(data);
 
-    const marginStyle = {"margin-left": "15px", "margin-right": "15px"};
+    const marginStyle = {marginLeft: "15px", marginRight: "15px"};
 
     const removeRow = (id) => {
         console.log("Removing row with id: "+id);
@@ -25,6 +25,7 @@ export const MyTable = (props) => {
 
     useEffect(() => {
         // Adjust some table widths and heights using JS
+        /*
         let maxWidthProduct = 0;
         let maxWidthTable = 0;
         for (let i in dataRows) {
@@ -40,7 +41,7 @@ export const MyTable = (props) => {
                 document.getElementById(`pn-${i}-${j}`).width = maxWidthProduct;
                 document.getElementById(`varBtn-${i}-${j}`).width = maxWidthTable;
             }
-        }
+        }*/
         // Now we are ready. We can turn off the loading screen
         document.getElementById("overlay").style.display = "none";
     });
@@ -55,7 +56,7 @@ export const MyTable = (props) => {
                         <th className="all-table-borders"><MySortableHeader text="Priority"/></th>
                         <th className="all-table-borders"><MySortableHeader text="Group"/></th>
                         <th id="pn-header" className="all-table-borders"><MySortableHeader text="Product Name"/></th>
-                        <th id="var-header" className="all-table-borders" colspan="4"><div style={marginStyle}>Variants</div></th>
+                        <th id="var-header" className="all-table-borders" colSpan="4"><div style={marginStyle}>Variants</div></th>
                         <th className="all-table-borders"><MySortableHeader text="Address"/></th>
                         <th className="all-table-borders"><MySortableHeader text="Created on"/></th>
                         <th className="all-table-borders"><MySortableHeader text="Deadline delivery"/></th>
