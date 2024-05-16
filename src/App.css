@@ -58,6 +58,10 @@ th {
   color: #ffffff;
 }
 
+.notes {
+  max-width: 100px;
+}
+
 /* Actions dropdown menu */
 .dropdown-toggle {
   border-top: 0px;
@@ -99,7 +103,6 @@ th {
 }
 
 /* Actions tooltips */
-
 .tooltip {
   --bs-tooltip-bg: #ffffff;
   --bs-tooltip-color: #000000;

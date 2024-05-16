@@ -40,7 +40,8 @@
     "Documents": [
       "Tech requirements.pdf",
       "Tech requirements.pdf"
-    ]
+    ],
+    "Notes": "The products can change."
   },
   {
     "id": "#68",
@@ -105,7 +106,8 @@
     "Documents": [
       "Tech requirements.pdf",
       "Tech requirements.pdf"
-    ]
+    ],
+    "Notes": "Apple may not be available."
   },
   {
     "id": "#72",
@@ -147,7 +149,8 @@
     "Documents": [
       "Tech requirements.pdf",
       "Tech requirements.pdf"
-    ]
+    ],
+    "Notes": "This request is expected to be ready for May 28th."
   },
   {
     "id": "#76",
@@ -190,6 +193,7 @@
     "Documents": [
       "Tech requirements.pdf",
       "Tech requirements.pdf"
-    ]
+    ],
+    "Notes": "This should be delivered soon."
   }
 ]

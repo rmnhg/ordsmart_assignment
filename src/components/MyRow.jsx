@@ -133,6 +133,7 @@ export const MyRow = (props) => {
                                 </Col>
                             </Container>
                         </td>
+                        <td className="all-table-borders" rowSpan={getTotalRows(props.rowData)}><div className="cell-margins notes">{props.rowData['Notes']}</div></td>
                         <td className="all-table-borders actions-bg actions-column" rowSpan={getTotalRows(props.rowData)}>
                             <div>
                                 <OverlayTrigger placement="left" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Confirm request")}>
