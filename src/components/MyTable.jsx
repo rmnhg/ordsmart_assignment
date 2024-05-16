@@ -47,6 +47,7 @@ export const MyTable = (props) => {
                         <th className="all-table-borders"><MySortableHeader text="Application"/></th>
                         <th className="all-table-borders"><div className="cell-margins">Additional Info</div></th>
                         <th className="all-table-borders"><div className="cell-margins">Documents</div></th>
+                        <th className="all-table-borders"><div className="cell-margins">Notes</div></th>
                         <th className="all-table-borders"><div className="cell-margins">Actions</div></th>
                     </tr>
                     {

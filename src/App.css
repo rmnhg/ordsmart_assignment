@@ -49,6 +49,10 @@ th {
   height: 15px;
 }
 
+.file-icon {
+  height: 20px;
+}
+
 .dark-grey-row {
   background-color: #dfe0e4;
 }

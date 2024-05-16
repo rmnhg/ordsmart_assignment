@@ -124,7 +124,7 @@ export const MyRow = (props) => {
                                     props.rowData['Documents'].map((document, idx) => {
                                     return (
                                         <div className="cell-margins" key={idx}>
-                                            <Image src="/file.png" roundedCircle style={{"height": "20px"}}/>
+                                            <Image src="/file.png" roundedCircle className="file-icon"/>
                                             <>{document}</>
                                         </div>
                                         );
