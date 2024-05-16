@@ -14,7 +14,7 @@ export const MyTable = (props) => {
         let idx = -1;
         newDataRows.map((array, pos) => {
             console.log(array);
-            if (array['id'] === id)
+            if (array['ID'] === id)
                 idx = pos;
             return pos;
         });
@@ -69,7 +69,19 @@ export const MyTable = (props) => {
             setCurrentColSorted(colName);
         }
         setDataRows(newDataRows);
-    }
+    };
+
+    const updateNotes = (ID, newNotes) => {
+        let newDataRows = JSON.parse(JSON.stringify(dataRows));
+        newDataRows.map((array, pos) => {
+            console.log(array);
+            if (array['ID'] === ID) {
+                array['Notes'] = newNotes;
+            }
+            return pos;
+        });
+        setDataRows(newDataRows);
+    };
 
     useEffect(() => {
         // Now we are ready. We can turn off the loading screen
@@ -106,7 +118,7 @@ export const MyTable = (props) => {
                     {
                         dataRows.map((element, idx) => {
                                 return (
-                                    <MyRow rowData={element} index={idx} key={idx} removeRow={removeRow}/>
+                                    <MyRow rowData={element} index={idx} key={idx} removeRow={removeRow} updateNotes={updateNotes}/>
                                 )
                             })
                     }

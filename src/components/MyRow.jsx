@@ -1,9 +1,23 @@
 import React, { useState } from "react";
-import { Button, Container, Col, Image, Dropdown, Tooltip, OverlayTrigger, Modal } from 'react-bootstrap';
+import { Button, Container, Col, Image, Dropdown, Tooltip, OverlayTrigger, Modal, Form } from 'react-bootstrap';
 import { MyPill } from "./MyPill";
 
 export const MyRow = (props) => {
     const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
+    const [showNoteDialog, setShowNoteDialog] = useState(false);
+    const [currentNote, setCurrentNote] = useState("");
+
+    const handleCloseNoteDiag = () => setShowNoteDialog(false);
+    const handleShowNoteDiag = () => setShowNoteDialog(true);
+
+    const openNoteDiag = (note) => {
+        setCurrentNote(note);
+        handleShowNoteDiag();
+    }
+
+    const handleNoteChange = (event) => {
+        setCurrentNote(event.target.value);
+    }
 
     const handleClose = () => setShowConfirmationDialog(false);
     const handleShow = () => setShowConfirmationDialog(true);
@@ -137,7 +151,7 @@ export const MyRow = (props) => {
                         <td className="all-table-borders actions-bg actions-column" rowSpan={getTotalRows(props.rowData)}>
                             <div>
                                 <OverlayTrigger placement="left" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Confirm request")}>
-                                    <button type="button" className="btn btn-success action-btn" onClick={() => props.removeRow(props.rowData['id'])}>✓</button>
+                                    <button type="button" className="btn btn-success action-btn" onClick={() => props.removeRow(props.rowData['ID'])}>✓</button>
                                 </OverlayTrigger>
                                 <br/>
                                 <OverlayTrigger placement="left" delay={tooltipTimes} overlay={(props) => renderTooltip(props, "Remove request")}>
@@ -153,20 +167,45 @@ export const MyRow = (props) => {
 
                                     <Dropdown.Menu>
                                         <Dropdown.Item href="#/action-1"><img src="/pencil.png" alt="Pencil icon" className="dropdown-action-icon"/><span className="dropdown-action">Edit Request</span></Dropdown.Item>
-                                        <Dropdown.Item href="#/action-2"><img src="/document.png" alt="Notes icon" className="dropdown-action-icon"/><span className="dropdown-action">Notes</span></Dropdown.Item>
+                                        <Dropdown.Item onClick={() => openNoteDiag(props.rowData['Notes'])}><img src="/document.png" alt="Notes icon" className="dropdown-action-icon"/><span className="dropdown-action">Notes</span></Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                                 <Modal show={showConfirmationDialog} onHide={handleClose}>
                                     <Modal.Header closeButton>
                                     <Modal.Title>Confirm remove</Modal.Title>
                                     </Modal.Header>
-                                    <Modal.Body>{"Are you sure you want to delete the row with ID " + props.rowData['id'] + "?"}</Modal.Body>
+                                    <Modal.Body>{"Are you sure you want to delete the row with ID " + props.rowData['ID'] + "?"}</Modal.Body>
                                     <Modal.Footer>
                                     <Button variant="secondary" onClick={handleClose}>
                                         No
                                     </Button>
-                                    <Button variant="danger" onClick={() => {props.removeRow(props.rowData['id']); handleClose()}}>
+                                    <Button variant="danger" onClick={() => {props.removeRow(props.rowData['ID']); handleClose()}}>
                                         Yes
+                                    </Button>
+                                    </Modal.Footer>
+                                </Modal>
+
+                                <Modal show={showNoteDialog} onHide={handleCloseNoteDiag}>
+                                    <Modal.Header closeButton>
+                                    <Modal.Title>Edit note</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                    <Form>
+                                        <Form.Group
+                                        className="mb-3"
+                                        controlId="noteForm.NoteTextarea"
+                                        >
+                                        <Form.Label>Notes</Form.Label>
+                                        <Form.Control as="textarea" rows={3} value={currentNote} onChange={handleNoteChange}/>
+                                        </Form.Group>
+                                    </Form>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                    <Button variant="danger" onClick={handleCloseNoteDiag}>
+                                        Discard
+                                    </Button>
+                                    <Button variant="success" onClick={() => {props.updateNotes(props.rowData['ID'], document.getElementById("noteForm.NoteTextarea").value); handleCloseNoteDiag()}}>
+                                        Save Changes
                                     </Button>
                                     </Modal.Footer>
                                 </Modal>
